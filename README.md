@@ -1,13 +1,12 @@
 <p align="center">
-  <!-- Logo removed: assets/logo.jpg not present in repository. Add assets/logo.jpg to restore. -->
-  
+  <img src="https://images.unsplash.com/photo-1542228262-9b3b4f3f40a3?auto=format&fit=crop&w=160&q=80" alt="DhakaPath Logo (placeholder)" width="160" style="border-radius: 20px;" />
 </p>
 
 <h1 align="center">DhakaPath: Live Urban Transit & Route Intelligence</h1>
 
 <p align="center">
   <strong>Official Solution for IAIT National IT Fest 2026 (INIF) · Smart City Hackathon</strong><br>
-  <em>Theme: Smart City · Stack: 100% Free & Open-Source Stack</em>
+  <em>Theme: Smart City · Stack: 100% Free &amp; Open-Source Stack</em>
 </p>
 
 <p align="center">
@@ -21,8 +20,7 @@
 ---
 
 <p align="center">
-  <!-- Banner removed: assets/banner.jpg not present in repository. Add assets/banner.jpg to restore. -->
-  
+  <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=1600&q=80" alt="DhakaPath Platform Overview (placeholder)" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
 </p>
 
 ---
@@ -173,4 +171,4 @@ To test real-time WebSocket alert broadcasting across multiple browser windows o
 Developed for **IAIT National IT Fest 2026 (INIF) · Smart City Hackathon**.
 - Map Data: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, [Humanitarian OSM Team](https://www.hotosm.org/), and Esri.
 
-<!-- Note: README image references to assets/logo.jpg and assets/banner.jpg were removed because the repository does not contain an 'assets' directory. To restore visuals, add the images at 'assets/logo.jpg' and 'assets/banner.jpg' and re-insert the image tags at the top of this file. -->
+<!-- Note: Images restored using high-quality Unsplash placeholders. If you prefer the images stored in the repository, provide the original files and I will upload them to ./assets/ and switch the README to local paths. -->
