@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1542228262-9b3b4f3f40a3?auto=format&fit=crop&w=160&q=80" alt="DhakaPath Logo (placeholder)" width="160" style="border-radius: 20px;" />
+  <img src="https://placehold.co/160x160/0284c7/ffffff?text=DhakaPath" alt="DhakaPath Logo (placeholder)" width="160" style="border-radius: 20px;" />
 </p>
 
 <h1 align="center">DhakaPath: Live Urban Transit & Route Intelligence</h1>
@@ -171,4 +171,4 @@ To test real-time WebSocket alert broadcasting across multiple browser windows o
 Developed for **IAIT National IT Fest 2026 (INIF) · Smart City Hackathon**.
 - Map Data: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, [Humanitarian OSM Team](https://www.hotosm.org/), and Esri.
 
-<!-- Note: Images restored using high-quality Unsplash placeholders. If you prefer the images stored in the repository, provide the original files and I will upload them to ./assets/ and switch the README to local paths. -->
+<!-- Updated logo to a transit-themed placeholder; if you'd like a custom branded logo instead, attach the image and I'll upload it to ./assets and switch README to local files. -->
