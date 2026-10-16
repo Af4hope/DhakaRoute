@@ -22,7 +22,7 @@
 ## 🗺️ DhakaPath at a Glance
 
 <p align="center">
-  <img src="./assets/banner.jpg" alt="Illustration of DhakaPath's transit map, metro and bus routes, and street alerts" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+  <img src="assets/banner.jpg" alt="Illustration of DhakaPath's transit map, metro and bus routes, and street alerts" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
   <br>
   <em>Dhaka transit routes, multimodal connections, and live street alerts in one view.</em>
 </p>
