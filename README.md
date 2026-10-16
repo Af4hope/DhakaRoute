@@ -1,6 +1,27 @@
-# DhakaPath: Live Urban Transit & Route Intelligence
-> **Official Solution for IAIT National IT Fest 2026 (INIF) · Smart City Hackathon**  
-> *Theme: Smart City | Stack: 100% Free & Open-Source Stack*
+<p align="center">
+  <img src="./assets/logo.jpg" alt="DhakaPath Logo" width="160" style="border-radius: 20px;" />
+</p>
+
+<h1 align="center">DhakaPath: Live Urban Transit & Route Intelligence</h1>
+
+<p align="center">
+  <strong>Official Solution for IAIT National IT Fest 2026 (INIF) · Smart City Hackathon</strong><br>
+  <em>Theme: Smart City · Stack: 100% Free & Open-Source Stack</em>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/OpenStreetMap-Humanitarian%20HOT-green?logo=openstreetmap" alt="OSM">
+  <img src="https://img.shields.io/badge/Leaflet.js-Interactive%20Maps-199900?logo=leaflet" alt="Leaflet">
+  <img src="https://img.shields.io/badge/MRT--6-Metro%20Rail%20Integrated-0284c7" alt="MRT-6">
+  <img src="https://img.shields.io/badge/Web%20Speech%20API-Audio%20Briefing-teal" alt="Speech">
+  <img src="https://img.shields.io/badge/Socket.IO-Realtime%20Sync-black?logo=socketdotio" alt="Socket.IO">
+</p>
+
+---
+
+<p align="center">
+  <img src="./assets/banner.jpg" alt="DhakaPath Platform Overview" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+</p>
 
 ---
 
