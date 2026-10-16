@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo.jpg" alt="DhakaPath Logo" width="160" style="border-radius: 20px;" />
+  <img src="assets/logo.jpg" alt="DhakaPath Logo" width="160" style="border-radius: 20px;" />
 </p>
 
 <h1 align="center">DhakaPath: Live Urban Transit & Route Intelligence</h1>
