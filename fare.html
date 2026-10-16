@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DhakaPath | Metro Fare Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e4f7f2 0%, #edf4ff 100%);
+      color: #142b2b;
+      padding: 30px 15px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 20px auto;
+    }
+
+    .top-nav {
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #087f70;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 14px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #d8e5df;
+      transition: background 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #f0fdf9;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo-badge {
+      display: inline-block;
+      background: #087f70;
+      color: white;
+      padding: 7px 16px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #61746e;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 35px rgba(19, 68, 53, 0.08);
+      border: 1px solid #e1ebe7;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .description {
+      color: #72817c;
+      font-size: 13px;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 580px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 12px;
+      margin: 14px 0 8px;
+      color: #142b2b;
+    }
+
+    select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #d8e5df;
+      border-radius: 10px;
+      background: #fbfdfc;
+      font-size: 14px;
+      color: #142b2b;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    select:focus {
+      border-color: #087f70;
+    }
+
+    .pass-type-group {
+      margin-top: 18px;
+      padding: 14px;
+      background: #f7faf9;
+      border-radius: 12px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .pass-type-group label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 14px;
+      background: #087f70;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #066b5e;
+      transform: translateY(-1px);
+    }
+
+    .result {
+      display: none;
+      margin-top: 24px;
+      padding: 22px;
+      background: #eaf8f3;
+      border: 1px solid #c8ede0;
+      border-radius: 14px;
+    }
+
+    .result h3 {
+      font-size: 15px;
+      color: #087f70;
+      margin-bottom: 12px;
+    }
+
+    .fare-display {
+      font-size: 38px;
+      font-weight: 800;
+      color: #087f70;
+      letter-spacing: -1px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #4b635c;
+    }
+
+    .meta-row strong {
+      color: #142b2b;
+    }
+
+    .note {
+      font-size: 11px;
+      color: #778780;
+      line-height: 1.6;
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #d4e8df;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #71827b;
+      margin-top: 28px;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-nav">
+      <a href="main.html" class="back-btn">← Back to DhakaPath Dashboard</a>
+    </div>
+
+    <div class="header">
+      <span class="logo-badge">MRT Line-6 Official Rates</span>
+      <h1>Metro Fare Calculator</h1>
+      <p>Calculate exact ticket costs, station travel times, and Rapid Pass discounts across Dhaka Metro Rail.</p>
+    </div>
+
+    <div class="card">
+      <h2>Calculate Station-to-Station Fare</h2>
+      <p class="description">Select origin and destination along the Uttara North to Motijheel corridor.</p>
+
+      <form id="fare-form">
+        <div class="grid-2">
+          <div>
+            <label for="from-station">Boarding Station</label>
+            <select id="from-station" required>
+              <option value="0">Uttara North</option>
+              <option value="1">Uttara Center</option>
+              <option value="2">Uttara South</option>
+              <option value="3">Pallabi</option>
+              <option value="4">Mirpur 11</option>
+              <option value="5" selected>Mirpur 10</option>
+              <option value="6">Kazipara</option>
+              <option value="7">Shewrapara</option>
+              <option value="8">Agargaon</option>
+              <option value="9">Bijoy Sarani</option>
+              <option value="10">Farmgate</option>
+              <option value="11">Karwan Bazar</option>
+              <option value="12">Shahbagh</option>
+              <option value="13">Dhaka University</option>
+              <option value="14">Bangladesh Secretariat</option>
+              <option value="15">Motijheel</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="to-station">Destination Station</label>
+            <select id="to-station" required>
+              <option value="0">Uttara North</option>
+              <option value="1">Uttara Center</option>
+              <option value="2">Uttara South</option>
+              <option value="3">Pallabi</option>
+              <option value="4">Mirpur 11</option>
+              <option value="5">Mirpur 10</option>
+              <option value="6">Kazipara</option>
+              <option value="7">Shewrapara</option>
+              <option value="8">Agargaon</option>
+              <option value="9">Bijoy Sarani</option>
+              <option value="10">Farmgate</option>
+              <option value="11">Karwan Bazar</option>
+              <option value="12">Shahbagh</option>
+              <option value="13">Dhaka University</option>
+              <option value="14">Bangladesh Secretariat</option>
+              <option value="15" selected>Motijheel</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pass-type-group">
+          <label>
+            <input type="radio" name="pass" value="single" checked> Single Journey Ticket
+          </label>
+          <label>
+            <input type="radio" name="pass" value="rapid"> MRT Pass / Rapid Pass (10% Off)
+          </label>
+        </div>
+
+        <button type="submit">Calculate Metro Fare →</button>
+      </form>
+
+      <div class="result" id="fare-result">
+        <h3>Trip Summary</h3>
+        <div class="fare-display" id="fare-amount">৳00</div>
+        
+        <div class="meta-row">
+          <span>Route:</span>
+          <strong id="route-text">—</strong>
+        </div>
+        <div class="meta-row">
+          <span>Number of Stations:</span>
+          <strong id="station-count">—</strong>
+        </div>
+        <div class="meta-row">
+          <span>Estimated Journey Time:</span>
+          <strong id="travel-time">—</strong>
+        </div>
+        <div class="meta-row">
+          <span>Ticket Category:</span>
+          <strong id="pass-type-text">Single Journey</strong>
+        </div>
+
+        <p class="note">
+          Base fare is ৳20 for the first two stations. Fares comply with the official Dhaka Mass Transit Company Limited (DMTCL) MRT Line-6 tariff structure.
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      <strong>DhakaPath</strong> · Smart Urban Transit Explorer
+      <br>
+      Built for IAIT National IT Fest 2026 Smart City Hackathon
+    </footer>
+  </div>
+
+  <script>
+    const stations = [
+      "Uttara North", "Uttara Center", "Uttara South", "Pallabi",
+      "Mirpur 11", "Mirpur 10", "Kazipara", "Shewrapara",
+      "Agargaon", "Bijoy Sarani", "Farmgate", "Karwan Bazar",
+      "Shahbagh", "Dhaka University", "Bangladesh Secretariat", "Motijheel"
+    ];
+
+    document.getElementById("fare-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const fromIndex = parseInt(document.getElementById("from-station").value, 10);
+      const toIndex = parseInt(document.getElementById("to-station").value, 10);
+      const isRapidPass = document.querySelector('input[name="pass"]:checked').value === "rapid";
+
+      if (fromIndex === toIndex) {
+        alert("Please select two different metro stations.");
+        return;
+      }
+
+      const stationDiff = Math.abs(toIndex - fromIndex);
+      
+      // MRT Line-6 Fare Calculation:
+      // Minimum fare is ৳20 (covers up to 2 station hops).
+      // Each subsequent station adds ~৳5-10, up to a maximum cap of ৳100 (Uttara North to Motijheel).
+      let baseFare = 20;
+      if (stationDiff > 2) {
+        baseFare = Math.min(100, 20 + (stationDiff - 2) * 6);
+      }
+
+      // Round to nearest 5 BDT
+      baseFare = Math.ceil(baseFare / 10) * 10;
+      if (baseFare < 20) baseFare = 20;
+      if (stationDiff >= 14) baseFare = 100;
+
+      let finalFare = baseFare;
+      if (isRapidPass) {
+        finalFare = Math.round(baseFare * 0.9);
+      }
+
+      const travelMinutes = Math.round(stationDiff * 2.6);
+
+      document.getElementById("fare-amount").textContent = "৳" + finalFare;
+      document.getElementById("route-text").textContent = stations[fromIndex] + " → " + stations[toIndex];
+      document.getElementById("station-count").textContent = stationDiff + " stations";
+      document.getElementById("travel-time").textContent = "~" + travelMinutes + " minutes";
+      document.getElementById("pass-type-text").textContent = isRapidPass ? "MRT Pass (10% Discount applied)" : "Single Journey Ticket";
+
+      document.getElementById("fare-result").style.display = "block";
+    });
+  </script>
+</body>
+</html>

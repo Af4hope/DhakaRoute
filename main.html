@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DhakaPath | Smart Urban Transit & Live Alerts</title>
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="logo">
+      <div class="logo-icon">↗</div>
+      Dhaka<span>Path</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#home">Dashboard</a>
+      <a href="#planner">Route Planner</a>
+      <a href="#map-section">City Map</a>
+      <a href="#transit-network">Transit Network</a>
+      <a href="#alerts">Street Alerts</a>
+      <a href="#rideshare">Ride-Share</a>
+      <a href="fare.html">Metro Fares ↗</a>
+    </nav>
+
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="admin-toggle-btn" id="admin-mode-toggle" onclick="toggleAdminMode()" title="Toggle Admin Moderation View">
+        ⚙️ Admin CMS: <span id="admin-status-text">OFF</span>
+      </button>
+      <div class="live-badge">● Live Network Active</div>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+
+    <!-- Welcome -->
+    <section class="welcome">
+      <div class="eyebrow">SMART CITY · DHAKA, BANGLADESH · INIF 2026</div>
+      <h1>Your city. Your route.<br>Smarter journeys.</h1>
+      <p>
+        Multi-modal transit intelligence, real-time street disruption rerouting, and crowd-corroborated alerts across Dhaka.
+      </p>
+    </section>
+
+    <!-- Overview cards -->
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Transit modes</span>
+          <div class="stat-icon">↗</div>
+        </div>
+        <div class="stat-number">04</div>
+        <div class="stat-note">Bus · Metro · Leguna · Rickshaw</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Reported street alerts</span>
+          <div class="stat-icon">⚠</div>
+        </div>
+        <div class="stat-number" id="alert-count">03</div>
+        <div class="stat-note">Crowd corroborated & active</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Route planner</span>
+          <div class="stat-icon">⌁</div>
+        </div>
+        <div class="stat-number">Ready</div>
+        <div class="stat-note">Multi-leg journey engine</div>
+      </div>
+    </section>
+
+    <!-- Urban Disruption Scenario Simulator (Part 3) -->
+    <div class="simulation-bar">
+      <div class="sim-label">⚡ Live Disruption Simulator (Judge Controls):</div>
+      <button class="sim-btn active" id="sim-btn-normal" onclick="simulateScenario('normal')">🔄 Normal Transit</button>
+      <button class="sim-btn" id="sim-btn-rain" onclick="simulateScenario('rain')">🌧️ Monsoon Flood (Dhanmondi)</button>
+      <button class="sim-btn" id="sim-btn-blockade" onclick="simulateScenario('blockade')">🚧 Farmgate Intersection Blockade</button>
+      <button class="sim-btn" id="sim-btn-rush" onclick="simulateScenario('rush')">🚗 Peak Office Gridlock (Mirpur)</button>
+    </div>
+
+    <!-- Planner and map -->
+    <section class="main-grid">
+
+      <div>
+        <div class="panel" id="planner">
+          <h2>Plan your journey</h2>
+          <p class="panel-description">
+            Select your locations to explore a suggested route.
+          </p>
+
+          <div class="field">
+            <label for="origin">Starting point</label>
+            <select id="origin">
+              <option value="Mirpur 10">Mirpur 10</option>
+              <option value="Uttara">Uttara</option>
+              <option value="Agargaon">Agargaon</option>
+              <option value="Mohakhali">Mohakhali</option>
+              <option value="Farmgate" selected>Farmgate</option>
+              <option value="Dhanmondi">Dhanmondi</option>
+              <option value="Science Lab">Science Lab</option>
+              <option value="Mohammadpur">Mohammadpur</option>
+              <option value="Shahbagh">Shahbagh</option>
+              <option value="Malibagh">Malibagh</option>
+              <option value="Banasree">Banasree</option>
+              <option value="Badda">Badda</option>
+              <option value="Motijheel">Motijheel</option>
+              <option value="Jatrabari">Jatrabari</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="destination">Destination</label>
+            <select id="destination">
+              <option value="Motijheel" selected>Motijheel</option>
+              <option value="Mirpur 10">Mirpur 10</option>
+              <option value="Uttara">Uttara</option>
+              <option value="Agargaon">Agargaon</option>
+              <option value="Mohakhali">Mohakhali</option>
+              <option value="Farmgate">Farmgate</option>
+              <option value="Dhanmondi">Dhanmondi</option>
+              <option value="Science Lab">Science Lab</option>
+              <option value="Mohammadpur">Mohammadpur</option>
+              <option value="Shahbagh">Shahbagh</option>
+              <option value="Malibagh">Malibagh</option>
+              <option value="Banasree">Banasree</option>
+              <option value="Badda">Badda</option>
+              <option value="Jatrabari">Jatrabari</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="transport">Preferred transport</label>
+            <select id="transport">
+              <option value="Metro">Metro Rail (MRT-6)</option>
+              <option value="Bus">Local Bus</option>
+              <option value="Leguna">Leguna (Human Hauler)</option>
+              <option value="Rickshaw">Connector Rickshaw</option>
+            </select>
+          </div>
+
+          <div class="route-options-row">
+            <label class="route-option-label">
+              <input type="checkbox" id="student-pass"> 🎓 Student Half-Fare (50% off bus, min ৳10)
+            </label>
+            <label class="route-option-label">
+              <input type="checkbox" id="rain-surge"> 🌧️ Monsoon Weather Surge (+50% rickshaw)
+            </label>
+          </div>
+
+          <button class="primary-btn" id="search-route">
+            Find my route →
+          </button>
+
+          <div class="result" id="route-result" aria-live="polite">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <h3>Journey estimate</h3>
+              <span id="route-mode-pill" style="font-size: 10px; font-weight: 800; background: #e0f2fe; color: #0284c7; padding: 2px 7px; border-radius: 4px;">MULTI-LEG ROUTE</span>
+            </div>
+
+            <div class="result-row">
+              <span>Total Distance</span>
+              <strong id="distance">—</strong>
+            </div>
+            <div class="result-row">
+              <span>Estimated Time</span>
+              <strong id="duration">—</strong>
+            </div>
+            <div class="result-row">
+              <span>Estimated Fare</span>
+              <strong id="fare">—</strong>
+            </div>
+            <div class="result-row" id="fare-detail-row" style="display: none;">
+              <span>Pricing note</span>
+              <strong id="fare-note" style="color: var(--primary);">—</strong>
+            </div>
+
+            <!-- Multi-Modal Fare Comparison (Part 3) -->
+            <div style="margin-top: 14px; font-size: 11px; font-weight: 700; color: #37534d; text-transform: uppercase;">
+              Transit Cost Comparison:
+            </div>
+            <div class="fare-comparison-grid">
+              <div class="fare-comparo-card">
+                <div class="fare-comparo-title">Metro (MRT-6)</div>
+                <div class="fare-comparo-price" id="comparo-metro">৳40</div>
+                <div class="fare-comparo-desc">Immune to rain</div>
+              </div>
+              <div class="fare-comparo-card">
+                <div class="fare-comparo-title">Bus / Student</div>
+                <div class="fare-comparo-price" id="comparo-bus">৳20 / ৳10</div>
+                <div class="fare-comparo-desc">50% Pass eligible</div>
+              </div>
+              <div class="fare-comparo-card">
+                <div class="fare-comparo-title">Rickshaw</div>
+                <div class="fare-comparo-price" id="comparo-rickshaw">৳120</div>
+                <div class="fare-comparo-desc">Direct feeder</div>
+              </div>
+            </div>
+
+            <!-- Multi-Leg Breakdown & Landmark Boarding (Part 2) -->
+            <div class="legs-container" id="legs-output">
+              <!-- Dynamically populated by java.js -->
+            </div>
+
+            <!-- Audio Briefing & Offline Card Buttons (Bonus Task 2) -->
+            <div class="action-row-btn">
+              <button class="btn-briefing" onclick="playAudioBriefing()" title="Read route aloud using Web Speech API">
+                🔊 Audio Briefing
+              </button>
+              <button class="btn-card-copy" onclick="copyRouteCard()" title="Copy route summary card">
+                📋 Save Card
+              </button>
+            </div>
+
+            <p class="notice">
+              Indicative multi-modal estimates based on Dhaka urban transit standards and DMTCL tariffs.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-panel" id="map-section">
+        <div class="map-heading">
+          <div>
+            <h2>Dhaka city map</h2>
+            <p>Explore locations and reported disruptions</p>
+          </div>
+          <span class="map-tag">OPEN MAP</span>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="map-legend">
+          <div class="legend-item">
+            <span class="dot"></span> Route / location hub
+          </div>
+          <div class="legend-item">
+            <span class="dot red"></span> Roadblock
+          </div>
+          <div class="legend-item">
+            <span class="dot orange"></span> Waterlogging
+          </div>
+          <div class="legend-item">
+            <span class="dot" style="background: #f97316;"></span> Traffic Jam
+          </div>
+          <div class="legend-item">
+            <span class="dot" style="background: #7c68c4;"></span> Construction
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Street alerts -->
+    <section class="alerts-section" id="alerts">
+      <div class="welcome">
+        <div class="eyebrow">COMMUNITY REPORTING & CMS</div>
+        <h1 style="font-size: 28px;">Street status & alerts</h1>
+        <p>Browse live disruptions, report road issues, and corroborate crowd reports in real time.</p>
+      </div>
+
+      <div class="alerts-grid">
+
+        <div class="panel">
+          <h2>Report a street issue</h2>
+          <p class="panel-description">
+            Submit an observation from your area to help fellow commuters.
+          </p>
+
+          <form id="alert-form">
+            <div class="alert-form">
+
+              <div class="field">
+                <label for="alert-location">Location Hub</label>
+                <select id="alert-location" required>
+                  <option value="Mirpur 10">Mirpur 10</option>
+                  <option value="Uttara">Uttara</option>
+                  <option value="Agargaon">Agargaon</option>
+                  <option value="Mohakhali">Mohakhali</option>
+                  <option value="Farmgate" selected>Farmgate</option>
+                  <option value="Dhanmondi">Dhanmondi</option>
+                  <option value="Science Lab">Science Lab</option>
+                  <option value="Mohammadpur">Mohammadpur</option>
+                  <option value="Shahbagh">Shahbagh</option>
+                  <option value="Malibagh">Malibagh</option>
+                  <option value="Banasree">Banasree</option>
+                  <option value="Badda">Badda</option>
+                  <option value="Motijheel">Motijheel</option>
+                  <option value="Jatrabari">Jatrabari</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="alert-type">Issue type</label>
+                <select id="alert-type" required>
+                  <option value="Waterlogging">🌧️ Waterlogging</option>
+                  <option value="Roadblock">🚧 Roadblock</option>
+                  <option value="Traffic jam">🚗 Traffic jam</option>
+                  <option value="Construction">🏗️ Construction</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label for="alert-description">Description</label>
+                <input id="alert-description"
+                  type="text"
+                  maxlength="180"
+                  placeholder="Describe road condition, water depth, or diversion..."
+                  required>
+              </div>
+
+              <div class="full">
+                <button class="primary-btn" type="submit">
+                  + Submit street report
+                </button>
+              </div>
+
+            </div>
+          </form>
+
+          <p class="notice">
+            Submitted alerts are validated through community confirmations and broadcasted live to connected commuters.
+          </p>
+        </div>
+
+        <div class="panel">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+            <h2>Recent street reports</h2>
+            <span style="font-size: 11px; color: var(--primary); font-weight: 700;">Live Feed</span>
+          </div>
+          <p class="panel-description">
+            Click any alert to locate on map. Confirm active issues or mark resolved.
+          </p>
+
+          <div class="alert-filters">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Waterlogging">🌧️ Waterlogging</button>
+            <button class="filter-btn" data-filter="Roadblock">🚧 Roadblock</button>
+            <button class="filter-btn" data-filter="Traffic jam">🚗 Traffic jam</button>
+            <button class="filter-btn" data-filter="Construction">🏗️ Construction</button>
+          </div>
+
+          <div class="alerts-list" id="alerts-list">
+            <!-- Populated and corroborated dynamically by java.js -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Transit Network & Route CMS (Part 1) -->
+    <section class="transit-network-section" id="transit-network">
+      <div class="welcome">
+        <div class="eyebrow">TRANSIT NETWORK & CMS · DHAKA PUBLIC TRANSIT</div>
+        <h1 style="font-size: 28px;">Dhaka Transit Routes & Lines</h1>
+        <p>Explore MRT-6 Metro lines, major bus franchises, leguna corridors, and feeder connector rickshaws with student half-pass rules and boarding landmarks.</p>
+      </div>
+
+      <div class="transit-routes-grid" id="transit-routes-catalog">
+        <!-- Populated dynamically by java.js -->
+      </div>
+    </section>
+
+    <!-- Commuter Ride-Share & Split Coordinator (Bonus Task 3) -->
+    <section class="rideshare-section" id="rideshare">
+      <div class="welcome">
+        <div class="eyebrow">COMMUTER CO-TRAVEL & FAIR FARE (BONUS TASK)</div>
+        <h1 style="font-size: 28px;">Rickshaw & CNG Ride-Share Coordinator</h1>
+        <p>Coordinate with fellow commuters at the same hub to share a vehicle, beat rush-hour fare surges, and split travel costs fairly.</p>
+      </div>
+
+      <div class="rideshare-card">
+        <div class="rideshare-grid">
+          <div>
+            <div class="field">
+              <label for="share-hub">Assembly Hub</label>
+              <select id="share-hub" onchange="calculateRideSplit()">
+                <option value="Farmgate (Ananda Cinema)">Farmgate (Ananda Cinema)</option>
+                <option value="Mirpur 10 (Roundabout Gate 2)">Mirpur 10 (Roundabout Gate 2)</option>
+                <option value="Shahbagh (National Museum)">Shahbagh (National Museum)</option>
+                <option value="Science Lab (Footbridge)">Science Lab (Footbridge)</option>
+                <option value="Dhanmondi (Road 27)">Dhanmondi (Road 27)</option>
+                <option value="Agargaon (Metro Station)">Agargaon (Metro Station)</option>
+                <option value="Uttara (House Building)">Uttara (House Building)</option>
+                <option value="Motijheel (Shapla Chattar)">Motijheel (Shapla Chattar)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="share-destination">Destination Landmark</label>
+              <input type="text" id="share-destination" placeholder="e.g. Dhaka University Campus / Kawran Bazar" value="Dhaka University Campus (TSC)" oninput="calculateRideSplit()">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div class="field">
+                <label for="share-mode">Vehicle Type</label>
+                <select id="share-mode" onchange="calculateRideSplit()">
+                  <option value="Rickshaw">Connector Rickshaw (Max 2)</option>
+                  <option value="CNG" selected>Auto Rickshaw / CNG (Max 4)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="share-pax">Passengers Sharing</label>
+                <select id="share-pax" onchange="calculateRideSplit()">
+                  <option value="2">2 Commuters</option>
+                  <option value="3" selected>3 Commuters</option>
+                  <option value="4">4 Commuters</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="share-fare">Agreed / Estimated Vehicle Fare (৳)</label>
+              <input type="number" id="share-fare" value="180" oninput="calculateRideSplit()">
+            </div>
+          </div>
+
+          <div class="split-result-box">
+            <span style="font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase;">Fair Cost Per Commuter</span>
+            <div class="per-person-amount" id="split-per-person">৳60</div>
+            <p id="split-summary-text" style="font-size: 13px; color: #3d5650; margin: 6px 0 16px;">3 commuters splitting ৳180 CNG fare evenly.</p>
+            <button class="primary-btn" onclick="copyRideShareInvite()" style="width: auto; padding: 11px 22px;">📋 Copy Ride-Share Coordination Note</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>DhakaPath</strong> — Live Urban Transit & Route Intelligence
+    <br><br>
+    Built for IAIT National IT Fest 2026 · Smart City Hackathon
+    <br><br>
+    Map data © OpenStreetMap contributors.
+    Estimates and sample reports are for demonstration only.
+  </footer>
+
+  <!-- DhakaPath AI Assistant Widget -->
+  <div id="ai-chat">
+    <button id="chat-toggle" onclick="toggleChat()">
+      💬 DhakaPath AI
+    </button>
+
+    <div id="chat-window" class="hidden">
+      <div class="chat-header">
+        <div>
+          <strong>DhakaPath Assistant</strong>
+          <small>Your smart commute companion</small>
+        </div>
+        <button onclick="toggleChat()" title="Close Chat">✕</button>
+      </div>
+
+      <div id="chat-messages">
+        <div class="bot-message">
+          Hello! Where do you want to go in Dhaka today?
+          <br><br>
+          You can ask me for routes, fares, or report street conditions live!
+          <br><br>
+          <em>Example: "Mirpur 10 theke Farmgate" or "Report waterlogging in Mirpur 10"</em>
+        </div>
+      </div>
+
+      <div class="chat-input">
+        <input id="chat-input" type="text" placeholder="Ask in English or Banglish..."
+          onkeydown="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet Map JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Socket.IO Client (Optional real-time sync with graceful offline fallback) -->
+  <script src="/socket.io/socket.io.js" onerror="console.log('DhakaPath running in standalone offline mode.')"></script>
+  <!-- Unified DhakaPath Application Controller -->
+  <script src="java.js"></script>
+
+</body>
+</html>
