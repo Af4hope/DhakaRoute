@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://placehold.co/160x160/0284c7/ffffff?text=DhakaPath" alt="DhakaPath Logo (placeholder)" width="160" style="border-radius: 20px;" />
+  <img src="./assets/logo.jpg" alt="DhakaPath Logo" width="160" style="border-radius: 20px;" />
 </p>
 
 <h1 align="center">DhakaPath: Live Urban Transit & Route Intelligence</h1>
 
 <p align="center">
   <strong>Official Solution for IAIT National IT Fest 2026 (INIF) · Smart City Hackathon</strong><br>
-  <em>Theme: Smart City · Stack: 100% Free &amp; Open-Source Stack</em>
+  <em>Theme: Smart City · Stack: 100% Free & Open-Source Stack</em>
 </p>
 
 <p align="center">
@@ -19,15 +19,19 @@
 
 ---
 
+## 🗺️ DhakaPath at a Glance
+
 <p align="center">
-  <img src="https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=1600&q=80" alt="DhakaPath Platform Overview (placeholder)" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+  <img src="./assets/banner.jpg" alt="Illustration of DhakaPath's transit map, metro and bus routes, and street alerts" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+  <br>
+  <em>Dhaka transit routes, multimodal connections, and live street alerts in one view.</em>
 </p>
 
 ---
 
 ## 📌 Executive Summary
 
-Navigating Dhaka’s chaotic commute is notoriously difficult. Commuters rely on a fragmented mix of **local buses, the MRT-6 Metro Rail, legunas (human haulers), and feeder rickshaws**. Existing map [...]
+Navigating Dhaka’s chaotic commute is notoriously difficult. Commuters rely on a fragmented mix of **local buses, the MRT-6 Metro Rail, legunas (human haulers), and feeder rickshaws**. Existing map applications fail because they do not account for:
 - Sudden monsoon **waterlogging** and road blockades.
 - Unofficial student **half-fare** discounts (50% off buses with a ৳10 floor).
 - Weather and peak-hour **surge pricing** on rickshaws and CNGs.
@@ -45,7 +49,7 @@ Navigating Dhaka’s chaotic commute is notoriously difficult. Commuters rely on
   - **Major Bus Franchises**: *Shikor Paribahan* (Mirpur ⇄ Motijheel), *Raida Enterprise* (Uttara ⇄ Jatrabari via Badda), and *Bikolpo Auto Service*.
   - **Leguna Corridors**: Line 4 (Farmgate ⇄ Mohammadpur) and Line 7 (Mirpur 10 ⇄ Agargaon).
   - **Connector Rickshaws**: Feeder links with surge indicators.
-- **Transit Metadata**: Mode, origin/destination hubs, travel times, base BDT fares, and specific **landmark boarding instructions** (e.g., *Farmgate Footbridge behind police box*, *Mirpur 10 Roundabo[...]  
+- **Transit Metadata**: Mode, origin/destination hubs, travel times, base BDT fares, and specific **landmark boarding instructions** (e.g., *Farmgate Footbridge behind police box*, *Mirpur 10 Roundabout Gate 2*).
 - **Admin CMS Moderation Mode**: Toggleable admin mode (`⚙️ Admin CMS`) in the navbar allowing administrators to moderate, verify, or remove crowd-reported disruptions.
 
 ### 2. 🗺️ Multi-Constraint & Multi-Leg Journey Search (Part 2)
@@ -70,13 +74,13 @@ Navigating Dhaka’s chaotic commute is notoriously difficult. Commuters rely on
 
 ### 4. 🛡️ Report Validation & Crowd Corroboration (Part 4)
 - **Anti-Spam Sanity Checks**: Character-count validation, prevention of duplicate spam, and rule-based filtering.
-- **Crowd Corroboration**: Commuters can click **👍 Confirm** on any alert to corroborate its status; once confirmed by multiple users, the report upgrades to a verified trust badge (`COMMUNITY VERI[...]
+- **Crowd Corroboration**: Commuters can click **👍 Confirm** on any alert to corroborate its status; once confirmed by multiple users, the report upgrades to a verified trust badge (`COMMUNITY VERIFIED`).
 - **Decay & Resolution**: Users can click **✓ Mark Cleared** when an obstruction has been resolved.
 
 ### 5. 💬 Conversational Commute Assistant (Part 5)
 - Floating AI Assistant widget with **English and Banglish NLP intent recognition**.
 - Ask for routes, fare comparisons, and road condition inquiries.
-- **Direct Disruption Reporting**: Commuters can type *"Report waterlogging in Dhanmondi"* or *"Mirpur 10 e rasta bondho"*; the AI extracts the incident type and hub, pins it to the interactive map, a[...]
+- **Direct Disruption Reporting**: Commuters can type *"Report waterlogging in Dhanmondi"* or *"Mirpur 10 e rasta bondho"*; the AI extracts the incident type and hub, pins it to the interactive map, and updates the live alert feed immediately.
 
 ### 6. 🎁 Bonus Features
 - **🔊 Audio Route Briefing (Bonus Task 2)**:
@@ -98,7 +102,7 @@ In compliance with the hackathon's fair-use constraints (zero paid APIs, no Goog
 | :--- | :--- | :--- |
 | **Frontend UI** | HTML5, Vanilla CSS3 | Lightweight, fast loading, zero external framework bloat. |
 | **Interactive Map** | Leaflet.js | Open-source mapping library. |
-| **Map Tile Providers** | OpenStreetMap (Humanitarian HOT), Esri World Street Map, CyclOSM | Free, high-reliability tile servers with no API keys, no 403 blocks, and no watermarks. Includes a top-rig[...]
+| **Map Tile Providers** | OpenStreetMap (Humanitarian HOT), Esri World Street Map, CyclOSM | Free, high-reliability tile servers with no API keys, no 403 blocks, and no watermarks. Includes a top-right Layer Switcher. |
 | **Audio Synthesis** | Browser-Native Web Speech API | 100% free speech synthesis with no third-party cloud audio dependencies. |
 | **Backend & Realtime** | Node.js, Express, Socket.IO | Real-time multi-device synchronization for crowd alerts. |
 | **Offline Fallback** | `localStorage` API | Works reliably without an internet connection or server process. |
@@ -170,5 +174,3 @@ To test real-time WebSocket alert broadcasting across multiple browser windows o
 ## 👥 Contributors
 Developed for **IAIT National IT Fest 2026 (INIF) · Smart City Hackathon**.
 - Map Data: © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors, [Humanitarian OSM Team](https://www.hotosm.org/), and Esri.
-
-<!-- Updated logo to a transit-themed placeholder; if you'd like a custom branded logo instead, attach the image and I'll upload it to ./assets and switch README to local files. -->
